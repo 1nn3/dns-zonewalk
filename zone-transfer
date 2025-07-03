@@ -27,15 +27,18 @@ _zone_transfer () {
 	local nameserver="$2"
 	local output_file="`echo $output_dir/$domain@$nameserver.txt | tr [:upper:] [:lower:]`"
 
-	if test -e "$output_file"; then
-		return
-	fi
+	#if test -e "$output_file"; then
+	#	return
+	#fi
 
 	local tmp="`mktemp --tmpdir=/dev/shm/`"
 	$dig AXFR $domain @$nameserver $dig_args > "$tmp"
 
 	if _was_successful "$tmp"; then
-		mv --backup=numbered "$tmp" "$output_file"
+		test -e "$output_file" \
+			&& mv -f -- "$output_file" "$output_file.old"
+		mv "$tmp" "$output_file"
+		#mv --backup=numbered "$tmp" "$output_file"
 
 		# TODO: scan recursively
 		#_get_ns_records < "$output_file" | while read DOMAIN NAMESERVER; do
