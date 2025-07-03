@@ -1,0 +1,6 @@
+#!/usr/bin/env -S awk -f
+
+$4=="NS" && !record[$1 "@" $5]++ {
+	printf("%s\t%s\n", $1, $5)
+}
+
