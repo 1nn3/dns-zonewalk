@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -x
+#set -e
+
+max_procs=8
+#xargs -P $max_procs -I {} ./zone-transfer {} <tlds-opennic.txt
+xargs -P $max_procs -I {} ./zone-transfer {} <tlds-alpha-by-domain.txt
+

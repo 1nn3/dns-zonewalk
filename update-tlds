@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+curl -O https://data.iana.org/TLD/tlds-alpha-by-domain.txt
